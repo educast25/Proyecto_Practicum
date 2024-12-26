@@ -12,11 +12,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+/*
 Route::get('/pacientes', function () {
     return view('pacientes');
 });
@@ -28,3 +24,11 @@ Route::get('/citasmedicas', function () {
 Route::get('/usuarios', function () {
     return view('usuarios');
 });
+*/
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+Route::resource('patients', PatientController::class);
+Route::resource('doctors', DoctorController::class);
