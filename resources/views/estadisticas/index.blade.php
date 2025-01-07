@@ -1,23 +1,24 @@
 @extends ('layouts.master')
 
-@section('titel', 'Listado de Pacientes' )
+@section('titel', 'Estadisticas' )
 
 @section('content')
-    <h2>Listado de Pacientes</h2>
+    <h2>Estadisticas</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Name patient</th>
-                <th>Age patient</th>
-                <th>Birthdate</th>
-                <th>Address</th>
                 <th>Contact patient</th>
+                <th>Name doctors</th>
+                <th>Diagnosis</th>
+                <th>Medical appointment date</th>
+                <th>Medical appointment time</th>
+                <th>Reason for the medical appointment</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            
 
 
         </tbody>

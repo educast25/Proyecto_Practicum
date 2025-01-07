@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Doctor;
+use App\Models\Medicinas;
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class MedicinaController extends Controller
 {
     public function index()
     {
