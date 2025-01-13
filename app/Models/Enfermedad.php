@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-class Doctor extends Model
+class Enfermedad extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
-        'specialty',
-        'contact',
+        'nombre',
+        'descripcion',
     ];    
+
+    public function citasMedicas(){
+        return $this->hasMany(CitaMedica::class);
+    }
 }

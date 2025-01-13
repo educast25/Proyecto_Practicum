@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Hospital')</title>
+    <title>@yield('title', 'Hospital Isidro Ayora')</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -22,10 +23,16 @@
                         <a class="nav-link active" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('patients.index') }}">Patients</a>
+                        <a class="nav-link" href="{{ route('patients.index') }}">Pacientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('doctors.index') }}">Doctors</a>
+                        <a class="nav-link" href="{{ route('doctors.index') }}">Doctores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('citas_medicas.index') }}">Citas Medicas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('enfermedades.index') }}">Enfermedades</a>
                     </li>
                 </ul>
             </div>
@@ -34,14 +41,12 @@
     <div class="container mt-4">
         @yield('content')
     </div>
-<footer class="bg-light text-center text-lg-start mt-4 py-3">
+    <footer class="bg-light text-center text-lg-start mt-4 py-3">
         <div class="text-center text-muted">
-            &copy; {{ date('Y') }} Hospital Isidro Ayora.
+            &copy; {{ date('Y') }} Hospital Management System. All Rights Reserved.
         </div>
     </footer>
-
     <!-- Bootstrap JS -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

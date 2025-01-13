@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CitaMedicaController;
+use App\Http\Controllers\EnfermedadController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,17 +16,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/*
-Route::get('/pacientes', function () {
-    return view('pacientes');
+
+/*Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/citasmedicas', function () {
-    return view('citasmedicas');
+Route::get('/register', function () {
+    return view('register');
 });
 
-Route::get('/usuarios', function () {
-    return view('usuarios');
+Route::get('/login', function () {
+    return view('login');
 });
 */
 
@@ -32,3 +36,7 @@ Route::get('/', function () {
 
 Route::resource('patients', PatientController::class);
 Route::resource('doctors', DoctorController::class);
+Route::resource('citas_medicas', CitaMedicaController::class);
+Route::resource('enfermedades', EnfermedadController::class);
+
+//Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');
