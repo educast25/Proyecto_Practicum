@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CitaMedica extends Model
 {
     use HasFactory;
+    protected $table = 'citas_medicas'; // Nombre explícito de la tabla
     protected $fillable = [
         'fecha',
         'hora',
@@ -14,6 +15,7 @@ class CitaMedica extends Model
         'doctor_id',
         'enfermedad_id',
     ];
+    // Relación con la enfermedad
     public function enfermedad(){
         return $this->belongsTo(Enfermedad::class);
     }

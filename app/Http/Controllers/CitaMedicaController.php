@@ -12,8 +12,8 @@ class CitaMedicaController extends Controller
      */
     public function index()
     {
-        $citas = CitaMedica::with("enfermedad")->get();
-        return view("citas_medicas.index", compact("citas"));
+        $appointments = CitaMedica::with("enfermedad")->get();
+        return view("citas_medicas.index", compact("appointments"));
     }
 
     /**
@@ -31,15 +31,15 @@ class CitaMedicaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "fecha"=> "requered|date",
-            "hora"=> "requered|date",
-            "paciente_id"=> "requered|integer",
-            "doctor_id"=> "requered|integer",
+            "fecha"=> "required|date",
+            "hora"=> "required",
+            "paciente_id"=> "required|integer",
+            "doctor_id"=> "required|integer",
             "enfermedad_id"=> "nullable|integer",
         ]);
 
-        CitaMedica::created($request->all());
-        return redirect()->route("citas_medicas.index")->with("success","Citas Medicas se creo Satisfactoriamente");
+        CitaMedica::create($request->all());
+        return redirect()->route("citas_medicas.index")->with("success","Citas Médicas se creó Satisfactoriamente");
     }
 
     /**
@@ -65,15 +65,15 @@ class CitaMedicaController extends Controller
     public function update(Request $request, CitaMedica $citaMedica)
     {
         $request->validate([
-            "fecha"=> "requered|date",
-            "hora"=> "requered",
-            "paciente_id"=> "requered|integer",
-            "doctor_id"=> "requered|integer",
+            "fecha"=> "required|date",
+            "hora"=> "required",
+            "paciente_id"=> "required|integer",
+            "doctor_id"=> "required|integer",
             "enfermedad_id"=> "nullable|integer",
         ]);
 
         $citaMedica->update( $request->all() );
-        return redirect()->route("citas_medicas.index")->with("success","Citas Medicas actualizado Satisfactoriamente");
+        return redirect()->route("citas_medicas.index")->with("success","Citas Médicas actualizado Satisfactoriamente");
     }
 
     /**
@@ -82,6 +82,6 @@ class CitaMedicaController extends Controller
     public function destroy(CitaMedica $citaMedica)
     {
         $citaMedica->delete();
-        return redirect()->route("citas_medicas.index")->with("success","Citas Medicas eliminado Satisfactoriamente");
+        return redirect()->route("citas_medicas.index")->with("success","Citas Médicas eliminado Satisfactoriamente");
     }
 }

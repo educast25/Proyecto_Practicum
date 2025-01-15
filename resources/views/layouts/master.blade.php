@@ -34,6 +34,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('enfermedades.index') }}">Enfermedades</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('calendario.index') }}">Calendarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('historial_clinico.index') }}">Historial Clínico</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('estadisticas.index') }}">Estadisticas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('medicamentos.index') }}">Medicamentos</a>
+                    </li>
                 </ul>
             </div>
         </div>

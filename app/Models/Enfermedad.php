@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Enfermedad extends Model
 {
     use HasFactory;
+    protected $table = 'enfermedades'; // Especifica el nombre correcto de la tabla
     protected $fillable = [
         'nombre',
         'descripcion',
