@@ -30,12 +30,15 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name"=> "requered|string|max:255",
-            "age"=> "requered|integer|min:0",
-            "contact"=> "requered|string|max:255",
+            "nombre"=> "required|string|max:255",
+            "ciudad"=> "required|string|max:255",
+            "direccion"=> "required|string|max:255",
+            "fecha_nacimiento"=> "required|date",
+            "edad"=> "required|integer|min:0",
+            "contacto"=> "required|string|max:255",
         ]);
 
-        Patient::created($request->all());
+        Patient::create($request->all());
         return redirect()->route("patients.index")->with("success","Paciente creado Satisfactoriamente");
     }
 
@@ -61,9 +64,9 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         $request->validate([
-            "name"=> "requered|string|max:255",
-            "age"=> "requered|integer|min:0",
-            "contact"=> "requered|string|max:255",
+            "nombre"=> "required|string|max:255",
+            "edad"=> "required|integer|min:0",
+            "contacto"=> "required|string|max:255",
         ]);
 
         $patient->update($request->all());

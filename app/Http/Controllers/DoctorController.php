@@ -29,13 +29,18 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+        // Validar los datos del formulario
         $request->validate([
-            "name"=> "requered|string|max:255",
-            "specialty"=> "requered|string|max:255",
-            "contact"=> "requered|string|max:255",
+            "nombres"=> "required|string|max:255",
+            "especialidad"=> "required|string|max:255",
+            "contacto"=> "required|string|max:255",
+            "correo"=> "required|email|max:255|unique:doctors",
+            "sexo" => "required|in:Masculino,Femenino,Otro",
         ]);
-
-        Doctor::created($request->all());
+        
+        // Guardar datos en la base de datos
+        Doctor::create($request->all());
+        // Redirigir después de guardar
         return redirect()->route("doctors.index")->with("success","Doctor creado Satisfactoriamente");
     }
 
@@ -61,9 +66,11 @@ class DoctorController extends Controller
     public function update(Request $request, doctor $doctor)
     {
         $request->validate([
-            "name"=> "requered|string|max:255",
-            "age"=> "requered|integer|min:0",
-            "contact"=> "requered|string|max:255",
+            "nombres" => "required|string|max:255",
+            "especialidad" => "required|string|max:255",
+            "contacto" => "required|string|max:255",
+            "correo" => "required|email|max:255|unique:doctors,correo," . $doctor->id,
+            "sexo" => "required|in:Masculino,Femenino,Otro",
         ]);
 
         $doctor->update($request->all());

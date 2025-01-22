@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('enfermedades', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

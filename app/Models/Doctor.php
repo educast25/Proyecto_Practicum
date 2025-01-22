@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Doctor extends Model
 {
     use HasFactory;
-    protected $table = 'doctores'; // Nombre explícito de la tabla
+    protected $table = 'doctors'; // Nombre explícito de la tabla
     protected $fillable = [
-        'nombre',
-        'especialidad',
-        'contacto',
+        'nombres', 
+        'especialidad', 
+        'contacto', 
+        'correo', 
+        'sexo',
     ];    
 }

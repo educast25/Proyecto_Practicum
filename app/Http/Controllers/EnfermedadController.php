@@ -13,7 +13,7 @@ class EnfermedadController extends Controller
     public function index()
     {
         $enfermedades = Enfermedad::all();
-        return view("enfermedades.index", compact("enfermedades"));
+        return view('enfermedades.index', compact('enfermedades'));
     }
 
     /**
@@ -21,7 +21,7 @@ class EnfermedadController extends Controller
      */
     public function create()
     {
-        return view("enfermedades.create");
+        return view('enfermedades.create');
     }
 
     /**
@@ -29,13 +29,14 @@ class EnfermedadController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-            "nombre"=> "requered|string",
-            "descripcion"=> "nullable|string",
+            'nombre' => 'required|string',
+            'descripcion' => 'nullable|string',
         ]);
 
-        Enfermedad::created($request->all());
-        return redirect()->route("enfermedades.index")->with("success","Enfermedades creadas Satisfactoriamente");
+        Enfermedad::create($request->all());
+        return redirect()->route('enfermedades.index')->with('success','Enfermedades creadas satisfactoriamente');
     }
 
     /**
@@ -51,7 +52,7 @@ class EnfermedadController extends Controller
      */
     public function edit(Enfermedad $enfermedad)
     {
-        return view("enfermedades.edit", compact("enfermedades"));
+        return view('enfermedades.edit', compact('enfermedad'));
     }
 
     /**
@@ -59,13 +60,16 @@ class EnfermedadController extends Controller
      */
     public function update(Request $request, Enfermedad $enfermedad)
     {
+        
         $request->validate([
-            "nombre"=> "requered|string",
-            "descripcion"=> "nullable|string",
+            'nombre' => 'required|string',
+            'descripcion' => 'nullable|string',
         ]);
 
         $enfermedad->update($request->all());
-        return redirect()->route("enfermedades.index")->with("success","Enfermedad actualizada Satisfactoriamente");
+        return redirect()->route('enfermedades.index')->with('success','Enfermedad autualizada satisfactoriamente');
+
+
     }
 
     /**
@@ -74,6 +78,6 @@ class EnfermedadController extends Controller
     public function destroy(Enfermedad $enfermedad)
     {
         $enfermedad->delete();
-        return redirect()->route("enfermedades.index")->with("success","Enfermedad eliminada Satisfactoriamente");
+        return redirect()->route('enfermedades.index')->with('success','Enfermedad eliminada satisfactoriamente');
     }
 }

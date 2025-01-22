@@ -20,19 +20,6 @@ use App\Http\Controllers\MedicamentoController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/login', function () {
-    return view('login');
-});
-*/
-
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -40,10 +27,8 @@ Route::get('/', function () {
 Route::resource('patients', PatientController::class);
 Route::resource('doctors', DoctorController::class);
 Route::resource('citas_medicas', CitaMedicaController::class);
-Route::resource('enfermedades', EnfermedadController::class);
+Route::resource('enfermedades', EnfermedadController::class)->parameters(['enfermedades' => 'enfermedad']);
 Route::resource('calendario', CalendarioController::class);
 Route::resource('historial_clinico', HistorialClinicoController::class);
 Route::resource('estadisticas', EstadisticasController::class);
 Route::resource('medicamentos', MedicamentoController::class);
-//Route::get('/calendario', [CalendarController::class, 'index'])->name('calendario.index');
-//Route::get('/patients', [PatientController::class, 'index'])->name('patients.index');

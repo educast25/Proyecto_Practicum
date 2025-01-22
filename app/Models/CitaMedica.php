@@ -8,12 +8,15 @@ class CitaMedica extends Model
 {
     use HasFactory;
     protected $table = 'citas_medicas'; // Nombre explícito de la tabla
+    protected $primaryKey = 'id';
+    public $incrementing = true;
     protected $fillable = [
         'fecha',
         'hora',
+        'motivo',
         'paciente_id',
         'doctor_id',
-        'enfermedad_id',
+        'enfermedad_id'
     ];
     // Relación con la enfermedad
     public function enfermedad(){

@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
-    protected $table = 'pacientes'; // Nombre explícito de la tabla
+    protected $table = 'patients'; // Nombre explícito de la tabla
     protected $fillable = [
         'nombre',
-        'fecha_nacimiento',
+        'ciudad',
         'direccion',
-        'telefono',
+        'fecha_nacimiento',
+        'edad',
+        'contacto',
     ];    
 }

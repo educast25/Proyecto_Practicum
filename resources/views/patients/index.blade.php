@@ -4,13 +4,16 @@
 
 @section('content')
     <h2>Pacientes</h2>
+
+    <a href="{{ route('patients.create') }}" class="btn btn-primary mb-3">Crear Nuevo Paciente</a>
+    
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Ciudad</th>
-                <th>Dirección</th>
+                <th>Direccion</th>
                 <th>Fecha Nacimiento</th>
                 <th>Edad</th>
                 <th>Contacto</th>
@@ -28,8 +31,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $patient->nombre }}</td>
                         <td>{{ $patient->ciudad }}</td>
-                        <td>{{ $patient->dirección }}</td>
-                        <td>{{ $patient->fecha_nacimientoe }}</td>
+                        <td>{{ $patient->direccion }}</td>
+                        <td>{{ $patient->fecha_nacimiento }}</td>
                         <td>{{ $patient->edad }}</td>
                         <td>{{ $patient->contacto }}</td>
                         <td>
