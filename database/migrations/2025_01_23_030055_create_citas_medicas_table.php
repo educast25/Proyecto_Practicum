@@ -6,32 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('citas_medicas', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
-            $table->time('hora');
+            $table->time('hora'); // o $table->string('hora') si prefieres
             $table->string('motivo');
+            
+            // Llaves foráneas (asumiendo que ya existen las tablas patients, doctors, enfermedades)
             $table->unsignedBigInteger('paciente_id');
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('enfermedad_id')->nullable();
-            $table->timestamps();
-
-
-            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
-            $table->foreign('doctor_id')->references('id')->on('doctores')->onDelete('cascade');
+            
+            // Relaciones opcionales (si quieres onDelete, onUpdate, etc.)
+            $table->foreign('paciente_id')->references('id')->on('patients')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
             $table->foreign('enfermedad_id')->references('id')->on('enfermedades')->onDelete('cascade');
+            
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('citas_medicas');
     }

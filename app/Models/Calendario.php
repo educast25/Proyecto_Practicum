@@ -8,38 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Calendario extends Model
 {
     use HasFactory;
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'calendarios';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'title',
-        'start_date',
-        'end_date',
-        'description',
+        'fecha',
+        'hora',
+        'motivo',
+        'paciente_id',
         'doctor_id',
-        'patient_id'
     ];
 
-    /**
-     * Relationships.
-     */
-
-    public function doctor()
+    // Relación con el modelo Paciente
+    public function paciente()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(Patient::class, 'paciente_id');
     }
 
-    public function patient()
+    // Relación con el modelo Doctor
+    public function doctor()
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 }

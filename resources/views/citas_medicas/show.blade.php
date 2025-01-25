@@ -1,26 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Detalle de Cita Médica')
+@section('title', 'Detalle de la Cita Médica')
 
 @section('content')
-    <h2>Detalle de Cita Médica</h2>
+<div class="container">
+    <h2>Detalle de la Cita Médica #{{ $citaMedica->id }}</h2>
     
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Cita #{{ $citaMedica->id }}</h5>
-            <p class="card-text">
-                <strong>Fecha:</strong> {{ $citaMedica->fecha }}<br>
-                <strong>Hora:</strong> {{ $citaMedica->hora }}<br>
-                <strong>Motivo:</strong> {{ $citaMedica->motivo }}<br>
-            </p>
-            {{-- Opcional: Mostrar relaciones con paciente, doctor, etc. --}}
-            <p class="card-text">
-                <strong>ID Paciente:</strong> {{ $citaMedica->paciente_id }}<br>
-                <strong>ID Doctor:</strong> {{ $citaMedica->doctor_id }}<br>
-                <strong>ID Enfermedad:</strong> {{ $citaMedica->enfermedad_id ?? 'No especificado' }}
-            </p>
-        </div>
-    </div>
+    <p><strong>Fecha:</strong> {{ $citaMedica->fecha }}</p>
+    <p><strong>Hora:</strong> {{ $citaMedica->hora }}</p>
+    <p><strong>Motivo:</strong> {{ $citaMedica->motivo }}</p>
+    <p><strong>Paciente:</strong> {{ $citaMedica->paciente_id }}</p>
+    <p><strong>Doctor:</strong> {{ $citaMedica->doctor_id }}</p>
+    <p><strong>Enfermedad:</strong> {{ $citaMedica->enfermedad_id }}</p>
 
-    <a href="{{ route('citas_medicas.index') }}" class="btn btn-primary mt-3">Volver a la lista</a>
+    <a href="{{ route('citas_medicas.index') }}" class="btn btn-secondary">Volver</a>
+</div>
 @endsection

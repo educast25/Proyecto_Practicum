@@ -14,5 +14,11 @@ class Doctor extends Model
         'contacto', 
         'correo', 
         'sexo',
-    ];    
-}
+    ];   
+    
+     // Relación con citas médicas
+     public function citasMedicas()
+     {
+         return $this->hasMany(CitaMedica::class, 'doctor_id');
+     }
+ }

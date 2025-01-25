@@ -2,66 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estadistica;
+use App\Models\Patient;
+use App\Models\Doctor;
+use App\Models\CitaMedica;
+use App\Models\Medicamento;
 use Illuminate\Http\Request;
 
 class EstadisticasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Obtener todas las estadísticas
-        $estadisticas = Estadistica::all();
-        return view('estadisticas.index', compact('estadisticas'));
-    }
+        // Total de pacientes
+        $totalPacientes = Patient::count();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Total de doctores
+        $totalDoctores = Doctor::count();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Total de citas médicas
+        $totalCitas = CitaMedica::count();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Medicamentos recetados (opcional: filtrar por un rango de fechas)
+        $totalMedicamentos = Medicamento::count();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Citas por especialidad
+        $citasPorEspecialidad = Doctor::withCount('citasMedicas')
+            ->get()
+            ->map(function ($doctor) {
+                return [
+                    'especialidad' => $doctor->especialidad,
+                    'citas' => $doctor->citas_medicas_count,
+                ];
+            });
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('estadisticas.index', compact(
+            'totalPacientes',
+            'totalDoctores',
+            'totalCitas',
+            'totalMedicamentos',
+            'citasPorEspecialidad'
+        ));
     }
 }

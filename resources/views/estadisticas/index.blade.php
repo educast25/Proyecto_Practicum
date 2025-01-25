@@ -3,45 +3,65 @@
 @section('title', 'Estadísticas - Hospital Management')
 
 @section('content')
-    <div class="container">
-        <h2>Estadísticas de Documentos</h2>
-         
+<div class="container">
+    <h2>Estadísticas Generales</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Pacientes</h5>
+                    <p class="card-text">{{ $totalPacientes }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Doctores</h5>
+                    <p class="card-text">{{ $totalDoctores }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Citas Médicas</h5>
+                    <p class="card-text">{{ $totalCitas }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Medicamentos</h5>
+                    <p class="card-text">{{ $totalMedicamentos }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>Citas por Especialidad</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Tipo de Documento</th>
-                    <th>Valor de Documento</th>
-                    <th>Acciones</th>
+                    <th>Especialidad</th>
+                    <th>Cantidad de Citas</th>
                 </tr>
             </thead>
             <tbody>
-                @if($estadisticas->isEmpty())
+                @foreach($citasPorEspecialidad as $especialidad)
                     <tr>
-                        <td colspan="4" class="text-center">No hay estadísticas disponibles.</td>
+                        <td>{{ $especialidad['especialidad'] }}</td>
+                        <td>{{ $especialidad['citas'] }}</td>
                     </tr>
-                @else
-                    @foreach($estadisticas as $estadistica)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $estadistica->tipo_documento }}</td>
-                            <td>{{ number_format($estadistica->valor_documento, 2) }}</td>  <!-- Formatear como número con decimales -->
-                            <td>
-                                <!-- Enlace para ver detalles -->
-                                <a href="{{ route('estadisticas.show', $estadistica->id) }}" class="btn btn-sm btn-info">Ver</a>
-                                <!-- Enlace para editar -->
-                                <a href="{{ route('estadisticas.edit', $estadistica->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                <!-- Formulario para eliminar -->
-                                <form action="{{ route('estadisticas.destroy', $estadistica->id) }}" method="POST" class="inline-form" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta estadística?')">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
+                @endforeach
             </tbody>
         </table>
     </div>
+</div>
 @endsection

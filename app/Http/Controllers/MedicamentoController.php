@@ -3,92 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\Medicamento;
-use App\Models\Patient;
-use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class MedicamentoController extends Controller
 {
-    /**
-     * Mostrar un listado de medicamentos.
-     */
     public function index()
     {
-        $medicamentos = Medicamento::with(['paciente', 'doctor'])->get();
+        $medicamentos = Medicamento::all();
         return view('medicamentos.index', compact('medicamentos'));
     }
 
-    /**
-     * Mostrar el formulario para crear un nuevo medicamento.
-     */
     public function create()
     {
-        $pacientes = Patient::all();
-        $doctores = Doctor::all();
-        return view('medicamentos.create', compact('pacientes', 'doctores'));
+        return view('medicamentos.create');
     }
 
-    /**
-     * Almacenar un nuevo medicamento en la base de datos.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'marca' => 'required|string|max:255',
-            'fecha_caducidad' => 'required|date',
-            'paciente_id' => 'nullable|exists:pacientes,id',
-            'doctor_id' => 'nullable|exists:doctors,id',
-        ]);
+        // Validación de datos
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+        'laboratorio' => 'nullable|string|max:255',
+        'cantidad_disponible' => 'required|integer|min:0',
+        'precio' => 'required|numeric|min:0',
+    ]);
 
-        Medicamento::create($request->all());
+    // Guardar el medicamento en la base de datos
+    Medicamento::create($request->all());
 
-        return redirect()->route('medicamentos.index')->with('success', 'Medicamento creado exitosamente.');
+    // Redirigir a la lista de medicamentos con un mensaje de éxito
+    return redirect()->route('medicamentos.index')->with('success', 'Medicamento creado con éxito.');
     }
 
-    /**
-     * Mostrar la información de un medicamento específico.
-     */
     public function show(Medicamento $medicamento)
     {
         return view('medicamentos.show', compact('medicamento'));
     }
 
-    /**
-     * Mostrar el formulario para editar un medicamento existente.
-     */
     public function edit(Medicamento $medicamento)
     {
-        $pacientes = Patient::all();
-        $doctores = Doctor::all();
-        return view('medicamentos.edit', compact('medicamento', 'pacientes', 'doctores'));
+        return view('medicamentos.edit', compact('medicamento'));
     }
 
-    /**
-     * Actualizar un medicamento en la base de datos.
-     */
     public function update(Request $request, Medicamento $medicamento)
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'marca' => 'required|string|max:255',
-            'fecha_caducidad' => 'required|date',
-            'paciente_id' => 'nullable|exists:pacientes,id',
-            'doctor_id' => 'nullable|exists:doctors,id',
+            'descripcion' => 'nullable|string',
+            'laboratorio' => 'nullable|string|max:255',
+            'cantidad_disponible' => 'required|integer|min:0',
+            'precio' => 'required|numeric|min:0',
         ]);
 
         $medicamento->update($request->all());
-
-        return redirect()->route('medicamentos.index')->with('success', 'Medicamento actualizado exitosamente.');
+        return redirect()->route('medicamentos.index')->with('success', 'Medicamento actualizado con éxito.');
     }
 
-    /**
-     * Eliminar un medicamento de la base de datos.
-     */
     public function destroy(Medicamento $medicamento)
     {
         $medicamento->delete();
-
-        return redirect()->route('medicamentos.index')->with('success', 'Medicamento eliminado exitosamente.');
+        return redirect()->route('medicamentos.index')->with('success', 'Medicamento eliminado con éxito.');
     }
 }

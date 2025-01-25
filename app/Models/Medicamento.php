@@ -9,34 +9,11 @@ class Medicamento extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'nombre',
-        'marca',
-        'fecha_caducidad',
-        'paciente_id',
-        'doctor_id',
+        'descripcion',
+        'laboratorio',
+        'cantidad_disponible',
+        'precio',
     ];
-
-    /**
-     * Relación con el modelo Paciente.
-     * Un medicamento puede ser recetado a un paciente.
-     */
-    public function paciente()
-    {
-        return $this->belongsTo(Patient::class);
-    }
-
-    /**
-     * Relación con el modelo Doctor.
-     * Un medicamento puede ser recetado por un doctor.
-     */
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class);
-    }
 }

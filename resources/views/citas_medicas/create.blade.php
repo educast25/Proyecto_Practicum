@@ -1,59 +1,77 @@
 @extends('layouts.master')
 
-@section('title', 'Crear Cita Médica')
+@section('title', 'Nueva Cita Médica')
 
 @section('content')
-    <h2>Crear Cita Médica</h2>
+<div class="container">
+    <h2>Nueva Cita Médica</h2>
 
+    {{-- Mostrar errores de validación si existen --}}
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- Formulario para crear cita --}}
     <form action="{{ route('citas_medicas.store') }}" method="POST">
         @csrf
 
+        {{-- Campo Fecha --}}
         <div class="form-group">
             <label for="fecha">Fecha:</label>
-            <input type="date" name="fecha" id="fecha" class="form-control" required>
+            <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha') }}" required>
         </div>
 
+        {{-- Campo Hora --}}
         <div class="form-group">
             <label for="hora">Hora:</label>
-            <input type="time" name="hora" id="hora" class="form-control" required>
+            <input type="time" name="hora" id="hora" class="form-control" value="{{ old('hora') }}" required>
         </div>
 
+        {{-- Campo Motivo --}}
+        <div class="form-group">
+            <label for="motivo">Motivo:</label>
+            <input type="text" name="motivo" id="motivo" class="form-control" value="{{ old('motivo') }}" required>
+        </div>
+
+        {{-- Campo Paciente --}}
         <div class="form-group">
             <label for="paciente_id">Paciente:</label>
-            <select name="paciente_id" id="paciente_id" class="form-control">
+            <select name="paciente_id" id="paciente_id" class="form-control" required>
                 <option value="">Seleccione un paciente</option>
                 @foreach($patients as $patient)
-                    <option value="{{ $patient->id }}">{{ $patient->nombre }}</option>
-                    {{-- Usa $patient->name o $patient->nombre, según tu tabla de 'patients' --}}
+                    <option value="{{ $patient->id }}" {{ old('paciente_id') == $patient->id ? 'selected' : '' }}>
+                        {{ $patient->nombre }}
+                    </option>
                 @endforeach
             </select>
         </div>
 
+        {{-- Campo Doctor --}}
         <div class="form-group">
             <label for="doctor_id">Doctor:</label>
             <select name="doctor_id" id="doctor_id" class="form-control" required>
                 <option value="">Seleccione un doctor</option>
                 @foreach($doctors as $doctor)
-                    <option value="{{ $doctor->id }}">{{ $doctor->nombres }}</option>                    
+                    <option value="{{ $doctor->id }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                        {{ $doctor->nombres }} - {{ $doctor->especialidad }}
+                    </option>
                 @endforeach
             </select>
         </div>
 
+        {{-- Campo Enfermedad (opcional) --}}
         <div class="form-group">
-            <label for="motivo">Motivo de la Cita:</label>
-            <textarea name="motivo" id="motivo" class="form-control" rows="3" required></textarea>
-        </div>        
-
-        <div class="form-group">
-            <label for="enfermedad_id">Enfermedad:</label>
-            <select name="enfermedad_id" id="enfermedad_id" class="form-control">
-                <option value="">Seleccione una enfermedad</option>
-                @foreach($enfermedades as $enfermedad)
-                    <option value="{{ $enfermedad->id }}">{{ $enfermedad->nombre }}</option>
-                @endforeach
-            </select>
+            <label for="enfermedad_id">Enfermedad (opcional):</label>
+            <input type="number" name="enfermedad_id" id="enfermedad_id" class="form-control" value="{{ old('enfermedad_id') }}">
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Guardar Cita</button>
+        <button type="submit" class="btn btn-primary mt-3">Crear Cita</button>
     </form>
+</div>
 @endsection
