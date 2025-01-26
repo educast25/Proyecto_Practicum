@@ -17,7 +17,8 @@
         @if(auth()->user()->role === 'paciente')
             <a href="{{ route('calendarios.paciente', auth()->user()->id) }}" class="btn btn-primary">Ver Mi Calendario</a>
         @elseif(auth()->user()->role === 'doctor')
-            <a href="{{ route('doctor.citas') }}" class="btn btn-primary">Ver Citas Asignadas</a>
+            <!-- Mostrar botón de citas sin necesidad de relación 'doctor' -->
+            <a href="{{ route('doctor.citas', ['doctor' => auth()->user()->id]) }}" class="btn btn-primary">Ver Citas Asignadas</a>
         @elseif(auth()->user()->role === 'superadmin')
             <a href="{{ route('patients.index') }}" class="btn btn-primary">Gestionar Pacientes</a>
             <a href="{{ route('doctors.index') }}" class="btn btn-secondary">Gestionar Doctores</a>

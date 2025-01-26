@@ -34,6 +34,7 @@
                 <option value="">Seleccione un Rol</option>
                 <option value="paciente">Paciente</option>
                 <option value="doctor">Doctor</option>
+                <option value="superadmin">Super Administrador</option> <!-- Nuevo rol -->
             </select>
         </div>
 

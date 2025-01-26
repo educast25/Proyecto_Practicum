@@ -85,4 +85,13 @@ class DoctorController extends Controller
         $doctor->delete();
         return redirect()->route("doctors.index")->with("success","Doctor eliminado Satisfactoriamente");
     }
+
+    public function citas(Doctor $doctor)
+{
+    // Obtener las citas asociadas al doctor
+    $citas = $doctor->citas; // Suponiendo que tienes una relación 'citas' en el modelo Doctor
+
+    // Retornar la vista con las citas
+    return view('doctors.citas', compact('citas', 'doctor'));
+}
 }

@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Doctor; // Asegúrate de importar el modelo Doctor
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Los atributos que son asignables masivamente.
      *
      * @var array<int, string>
      */
@@ -21,10 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'especialidad',
+        'doctor_id', // Añadido campo doctor_id para asociar un doctor al usuario
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Los atributos que deberían ser ocultados para la serialización.
      *
      * @var array<int, string>
      */
@@ -34,7 +37,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast.
+     * Los atributos que deberían ser convertidos en tipos específicos.
      *
      * @var array<string, string>
      */
@@ -42,4 +45,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relación: Un usuario puede tener un doctor asociado.
+     */
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class); // Un usuario tiene un solo doctor asociado
+    }
 }

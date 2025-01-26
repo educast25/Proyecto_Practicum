@@ -65,10 +65,17 @@
             </select>
         </div>
 
-        {{-- Campo Enfermedad (opcional) --}}
+        {{-- Campo Enfermedad --}}
         <div class="form-group">
-            <label for="enfermedad_id">Enfermedad (opcional):</label>
-            <input type="number" name="enfermedad_id" id="enfermedad_id" class="form-control" value="{{ old('enfermedad_id') }}">
+            <label for="enfermedad_id">Enfermedad:</label>
+            <select name="enfermedad_id" id="enfermedad_id" class="form-control" required>
+                <option value="">Seleccione una enfermedad</option>
+                @foreach($enfermedades as $enfermedad)
+                    <option value="{{ $enfermedad->id }}" {{ old('enfermedad_id') == $enfermedad->id ? 'selected' : '' }}>
+                        {{ $enfermedad->nombre }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Crear Cita</button>

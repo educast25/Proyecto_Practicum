@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,8 +34,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:paciente,doctor',
-            'especialidad' => 'nullable|string|max:255', // Solo para doctores
+            'role' => 'required|in:paciente,doctor,superadmin',
+            'especialidad' => 'nullable|string|max:255',
         ]);
 
         // Crear el usuario
@@ -45,10 +44,10 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            // Solo asignar "especialidad" si el rol es "doctor"
             'especialidad' => $request->role === 'doctor' ? $request->especialidad : null,
         ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
     }
 }
-
